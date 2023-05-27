@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Validation</title>
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+</head>
+
+<body>
+  <h1>Dashboard</h1>
+  <div id="data"></div>
+  <button onclick="logout()">Logout</button>
+</body>
+
+<script>
+    $.ajax({
+        type: 'get',
+        url: '/api/data',
+        headers: {
+            "x-auth-token": localStorage.getItem("auth-token")
+        },
+        contentType: "application/json; charset=utf-8",
+        success: function (data) {
+          $("#data").html(data)
+        },
+        error: function (data) {
+          alert("Error")
+        }
+      });
+
+    function logout(){
+        localStorage.removeItem("auth-token")
+        window.location.href = "/";
+    }
+</script>
+</html>
