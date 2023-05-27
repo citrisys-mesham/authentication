@@ -8,6 +8,7 @@ def auth():
     authenticated = False
     if "x-auth-token" not in request.headers:
         return jsonify({"error": "Invalid request"}), 401
+    # This to be replaced by JWT validation
     for auth in AUTHTOKEN:
         if AUTHTOKEN[auth] == request.headers["x-auth-token"]:
             authenticated = True

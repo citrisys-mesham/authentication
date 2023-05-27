@@ -22,6 +22,7 @@ def dashboard():
 def auth():
     data = request.get_json()
     if data["token"] in MOCK_SUCCESS_TOKENS:
+        # This to be replaced by JWT
         return jsonify({"auth": AUTHTOKEN[data['token']]}), 200
     return jsonify({"auth": "failed"}), 401
 
