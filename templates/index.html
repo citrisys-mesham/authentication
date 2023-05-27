@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Validation</title>
+  <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+</head>
+
+<body>
+  <label for="valueInput">Enter your token:</label>
+  <input type="text" id="tokeninput" name="tokeninput">
+  <button onclick="auth()">Submit</button>
+
+  <script>
+    function auth() {
+      token = $("#tokeninput").val()
+      data = JSON.stringify({ token: token })
+      console.log(data)
+
+      $.ajax({
+        type: 'post',
+        url: '/auth',
+        data: data,
+        contentType: "application/json; charset=utf-8",
+        traditional: true,
+        success: function (data) {
+          authToken = data['auth']
+          localStorage.setItem("auth-token", authToken)
+          alert("Welcome!")
+          window.location.href = "/dashboard";
+        },
+        error: function (data) {
+          alert("Unauthorized!")
+        }
+      });
+    }
+  </script>
+</body>
+
+</html>
